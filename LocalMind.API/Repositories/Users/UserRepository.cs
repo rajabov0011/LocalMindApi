@@ -1,5 +1,6 @@
 ﻿using LocalMind.API.DataContext;
 using LocalMind.API.Models.Users;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocalMind.API.Repositories.Users
 {
@@ -22,6 +23,6 @@ namespace LocalMind.API.Repositories.Users
         }
 
         public IQueryable<User> SelectAllUsers() =>
-            this.context.Users;
+            this.context.Users.Include(user => user.UserAdditionalDetail);
     }
 }

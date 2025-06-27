@@ -12,7 +12,6 @@ namespace LocalMind.API.Models.UserAdditionalDetails
         public string Email { get; set; }
         public string Country { get; set; }
 
-        [ForeignKey("Users")]
         public Guid UserId { get; set; }
         public User User { get; set; }
     }

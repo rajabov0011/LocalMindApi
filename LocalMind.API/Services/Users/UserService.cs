@@ -1,4 +1,5 @@
 ﻿using LocalMind.API.Models.Users;
+using LocalMind.API.Repositories.UserAdditionalDetails;
 using LocalMind.API.Repositories.Users;
 
 namespace LocalMind.API.Services.Users
@@ -6,9 +7,15 @@ namespace LocalMind.API.Services.Users
     public class UserService : IUserService
     {
         private readonly IUserRepository userRepository;
+        private readonly IUserAdditionalDetailRepository userAdditionalDetailRepository;
 
-        public UserService(IUserRepository userRepository) =>
+        public UserService(
+            IUserRepository userRepository,
+            IUserAdditionalDetailRepository userAdditionalDetailRepository)
+        {
             this.userRepository = userRepository;
+            this.userAdditionalDetailRepository = userAdditionalDetailRepository;
+        }
 
         public async ValueTask<User> AddUserAsync(User user)
         {
@@ -17,7 +24,15 @@ namespace LocalMind.API.Services.Users
             user.CreatedDate = now;
             user.UpdatedDate = now;
 
-            return await this.userRepository.InsertUserAsync(user);
+            await this.userRepository.InsertUserAsync(user);
+
+            if (user.UserAdditionalDetail != null)
+            {
+                await this.userAdditionalDetailRepository
+                    .InsertUserAdditionalDetailAsync(user.UserAdditionalDetail);
+            }
+
+            return user;    
         }
 
         public IQueryable<User> RetrieveAllUsers()
