@@ -1,6 +1,8 @@
 ﻿using LocalMind.API.Models.Users;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LocalMind.API.Models
+namespace LocalMind.API.Models.UserAdditionalDetails
 {
     public class UserAdditionalDetail
     {
@@ -9,6 +11,8 @@ namespace LocalMind.API.Models
         public int Age { get; set; }
         public string Email { get; set; }
         public string Country { get; set; }
+
+        [ForeignKey("Users")]
         public Guid UserId { get; set; }
         public User User { get; set; }
     }

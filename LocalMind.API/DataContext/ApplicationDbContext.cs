@@ -1,4 +1,4 @@
-﻿using LocalMind.API.Models;
+﻿using LocalMind.API.Models.UserAdditionalDetails;
 using LocalMind.API.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +15,11 @@ namespace LocalMind.API.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<UserAdditionalDetail>()
+                .HasOne(userAdditionalDetail => userAdditionalDetail.User)
+                .WithOne(user => user.UserAdditionalDetail)
+                .OnDelete(DeleteBehavior.Cascade);
+
             base.OnModelCreating(modelBuilder);
         }
     }
