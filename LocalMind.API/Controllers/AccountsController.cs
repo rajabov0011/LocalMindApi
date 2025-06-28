@@ -1,4 +1,5 @@
-﻿using LocalMind.API.Models.UserCredentials;
+﻿using LocalMind.API.Helpers;
+using LocalMind.API.Models.UserCredentials;
 using LocalMind.API.Models.UserTokens;
 using LocalMind.API.Services.Accounts;
 using Microsoft.AspNetCore.Mvc;

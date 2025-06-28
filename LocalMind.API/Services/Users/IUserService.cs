@@ -1,10 +1,11 @@
-﻿using LocalMind.API.Models.Users;
+﻿using LocalMind.API.DTOs;
+using LocalMind.API.Models.Users;
 
 namespace LocalMind.API.Services.Users
 {
     public interface IUserService
     {
-        ValueTask<User> AddUserAsync(User user);
-        IQueryable<User> RetrieveAllUsers();
+        ValueTask<UserDto> AddUserAsync(UserDto userDto);
+        IQueryable<UserDto> RetrieveAllUsers();
     }
 }
