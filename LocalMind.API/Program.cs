@@ -1,4 +1,5 @@
 using LocalMind.API.DataContext;
+using LocalMind.API.Middlewares;
 using LocalMind.API.Repositories.UserAdditionalDetails;
 using LocalMind.API.Repositories.Users;
 using LocalMind.API.Services.Accounts;
@@ -32,7 +33,8 @@ builder.Services.AddAuthentication(options =>
             Encoding.UTF8.GetBytes(builder.Configuration["AuthConfiguration:Key"]!))
     };
 });
-
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 builder.Services.AddAuthorization();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -61,6 +63,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
+app.UseExceptionHandler();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
