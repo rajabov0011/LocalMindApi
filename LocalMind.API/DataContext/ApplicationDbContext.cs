@@ -1,4 +1,6 @@
-﻿using LocalMind.API.Models.UserAdditionalDetails;
+﻿using LocalMind.API.Models.ChatDetails;
+using LocalMind.API.Models.Chats;
+using LocalMind.API.Models.UserAdditionalDetails;
 using LocalMind.API.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +14,8 @@ namespace LocalMind.API.DataContext
 
         public DbSet<User> Users { get; set; }
         public DbSet<UserAdditionalDetail> UserAdditionalDetails { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<ChatDetail> ChatDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

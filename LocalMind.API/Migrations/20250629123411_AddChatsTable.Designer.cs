@@ -3,6 +3,7 @@ using System;
 using LocalMind.API.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LocalMind.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250629123411_AddChatsTable")]
+    partial class AddChatsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,31 +24,6 @@ namespace LocalMind.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("LocalMind.API.Models.ChatDetails.ChatDetail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ChatId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Source")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ChatId");
-
-                    b.ToTable("ChatDetails");
-                });
 
             modelBuilder.Entity("LocalMind.API.Models.Chats.Chat", b =>
                 {
@@ -66,7 +44,7 @@ namespace LocalMind.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Chats");
+                    b.ToTable("Chat");
                 });
 
             modelBuilder.Entity("LocalMind.API.Models.UserAdditionalDetails.UserAdditionalDetail", b =>
@@ -140,17 +118,6 @@ namespace LocalMind.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("LocalMind.API.Models.ChatDetails.ChatDetail", b =>
-                {
-                    b.HasOne("LocalMind.API.Models.Chats.Chat", "Chat")
-                        .WithMany("ChatDetails")
-                        .HasForeignKey("ChatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Chat");
-                });
-
             modelBuilder.Entity("LocalMind.API.Models.Chats.Chat", b =>
                 {
                     b.HasOne("LocalMind.API.Models.Users.User", "User")
@@ -171,11 +138,6 @@ namespace LocalMind.API.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("LocalMind.API.Models.Chats.Chat", b =>
-                {
-                    b.Navigation("ChatDetails");
                 });
 
             modelBuilder.Entity("LocalMind.API.Models.Users.User", b =>
