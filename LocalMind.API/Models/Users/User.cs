@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using LocalMind.API.Models.Chats;
 using LocalMind.API.Models.UserAdditionalDetails;
 
 namespace LocalMind.API.Models.Users
@@ -25,5 +26,6 @@ namespace LocalMind.API.Models.Users
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedDate { get; set; } = DateTime.UtcNow;
         public UserAdditionalDetail UserAdditionalDetail { get; set; }
+        public virtual ICollection<Chat> Chats { get; set; }
     }   
 }

@@ -1,8 +1,12 @@
 using LocalMind.API.DataContext;
 using LocalMind.API.Middlewares;
+using LocalMind.API.Repositories.ChatDetails;
+using LocalMind.API.Repositories.Chats;
 using LocalMind.API.Repositories.UserAdditionalDetails;
 using LocalMind.API.Repositories.Users;
 using LocalMind.API.Services.Accounts;
+using LocalMind.API.Services.ChatDetails;
+using LocalMind.API.Services.Chats;
 using LocalMind.API.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -49,8 +53,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IChatRepository, ChatRepository>();
+builder .Services.AddTransient<IChatDetailRepository, ChatDetailRepository>();
 builder.Services.AddTransient<IUserAdditionalDetailRepository, UserAdditionalDetailRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IChatService, ChatService>();
+builder.Services.AddTransient<IChatDetailService, ChatDetailService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
 
 builder.Services.AddOpenApi();
